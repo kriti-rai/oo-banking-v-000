@@ -1,3 +1,4 @@
+require 'pry'
 class Transfer
   attr_accessor :sender, :receiver, :status, :amount
   attr_reader :BankAccount
@@ -8,8 +9,8 @@ class Transfer
     @status = status
     @amount = amount
   end
-
   def valid?
+    # self.new(sender, receier)
     receiver_acc = BankAccount.new(@receiver)
     sender_acc = BankAccount.new(@sender)
     (@receiver.valid? && @sender.valid?)? true : false
@@ -25,6 +26,11 @@ class Transfer
         self.receiver.balance += self.amount
         self.sender.balance -= self.amount
         self.status = "complete"
+      #
+      # elsif !self.sender.valid? || self.sender.balance < self.amount
+      #   "Transaction rejected. Please check your account balance."
+      #   self.status = "rejected"
+
       end
     end
 
